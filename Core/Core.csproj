@@ -8,7 +8,6 @@
     <Folder Include="AutoMaper\ApplicationProfiles\" />
     <Folder Include="Constants\" />
     <Folder Include="DTO\" />
-    <Folder Include="Entities\" />
     <Folder Include="Interfaces\CustomService\" />
     <Folder Include="Services\" />
     <Folder Include="Specifications\" />
@@ -17,6 +16,7 @@
   <ItemGroup>
     <PackageReference Include="Ardalis.Specification.EntityFrameworkCore" Version="6.1.0" />
     <PackageReference Include="AutoMapper" Version="11.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.17" />
   </ItemGroup>
 
 </Project>
