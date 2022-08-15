@@ -1,5 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Core.Entities.BankEntity;
+using Core.Entities.CardEntity;
+using Core.Entities.CashEntity;
+using Core.Entities.TypesMoney;
+using Core.Entities.WalletEntity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
 namespace Api.Data
 {
@@ -9,5 +14,10 @@ namespace Api.Data
             : base(options)
         {
         }
+        public DbSet<Bank> Banks { get; set; }
+        public DbSet<Card> Cards { get; set; }
+        public DbSet<Cash> Cash { get; set; }
+        public DbSet<TypeMoney> TypesMonies { get; set; }
+        public DbSet<Wallet> Wallets { get; set; }
     }
 }
