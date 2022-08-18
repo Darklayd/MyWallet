@@ -1,6 +1,7 @@
 using Api.Areas.Identity;
 using Api.Data;
 using Core;
+using Core.Entities.UserEntity;
 using Infrastructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components.Authorization;
@@ -27,14 +28,27 @@ namespace Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext(Configuration.GetConnectionString("DefaultConnection"));
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
+
+            services.AddControllers();
+
             services.AddCustomServices();
+
             services.AddAutoMapper();
+
+            services.AddRepositories();
+
             services.AddFluentValidation();
+
             services.AddRazorPages();
+
             services.AddServerSideBlazor();
-            services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
+
+            services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<User>>();
+
             services.AddDatabaseDeveloperPageExceptionFilter();
         }
 

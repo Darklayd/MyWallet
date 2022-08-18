@@ -10,7 +10,9 @@ namespace Infrastructure
     {
         public static void AddDbContext(this IServiceCollection service, string connectionString)
         {
-            service.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
+            service
+                .AddDbContext<ApplicationDbContext>(options => 
+                    options.UseSqlServer(connectionString));
         }
 
         public static void AddRepositories(this IServiceCollection service)

@@ -1,0 +1,47 @@
+﻿@page "/razor-profile"
+
+@inherits RazorProfileModel
+
+<div class="row">
+    <div class="col-md-4">
+        <EditForm Model="@Profile" OnValidSubmit="@HandleValidSubmit">
+            <DataAnnotationsValidator />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <InputText type="hidden" @bind-Value="Profile.Id"/>
+            <div class="form-group">
+                <label a class="control-label">First Name</label>
+                <InputText @bind-Value="@Profile.FirstName" class="form-control"/>
+                <ValidationMessage For="() => Profile.FirstName"/>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Last Name</label>
+                <InputText @bind-Value="@Profile.LastName" class="form-control"/>
+                <ValidationMessage For="() => Profile.LastName"/>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Birth Day</label>
+                <p class="form-control">@Profile.BirthDay.ToString("dd.mm.yyyy")</p>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Email</label>
+                <p class="form-control">@Profile.Email</p>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Email Confirmed</label>
+                @if (Profile.EmailConfirmed)
+                {
+                    <span class="oi oi-circle-check"></span>
+                }
+                else
+                {
+                    <span class="oi oi-circle-x"></span>
+                }
+            </div>
+            <div class="form-group">
+                <button type="submit" @onclick="ChangProfile" class="btn btn-primary">
+                    Save
+                </button>
+            </div>
+        </EditForm>
+    </div>
+</div>

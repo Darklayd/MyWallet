@@ -1,4 +1,7 @@
 ﻿using AutoMapper;
+using Core.AutoMapper.ApplicationProfiles;
+using Core.Interfaces.CustomService;
+using Core.Services;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Core
@@ -7,16 +10,14 @@ namespace Core
     {
         public static void AddCustomServices(this IServiceCollection services)
         {
-            // Приклад підключення сервісів
-            // services.AddScoped<IAuthenticationService, AuthenticationService>();
+            services.AddScoped<IUserService, UserService>();
         }
 
         public static void AddAutoMapper(this IServiceCollection services)
         {
             var configures = new MapperConfiguration(mc =>
             {
-                // Приклад підключення правил мапінгу
-                // mc.AddProfile(new UserProfiles());
+                mc.AddProfile(new UserProfile());
             });
 
             var mapper = configures.CreateMapper();
