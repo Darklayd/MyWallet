@@ -1,0 +1,23 @@
+﻿@page "/profile"
+@using System.Security.Claims
+
+<h4>Profile</h4>
+<hr />
+<div class="row">
+    <div class="col">
+        <AuthorizeView>
+            <Authorized>
+                <ProfileForm UserId="@context.User.FindFirstValue(ClaimTypes.NameIdentifier)"/>
+            </Authorized>
+
+            <NotAuthorized>
+                <h1>@ErrorMessages.UserNotFound</h1>
+            </NotAuthorized>
+        </AuthorizeView>
+    </div>
+</div>
+
+@code
+{
+
+}
