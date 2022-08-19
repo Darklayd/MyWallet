@@ -1,0 +1,37 @@
+﻿@using System.Diagnostics.SymbolStore
+@using System.Net.Mime
+@using System.Text
+@using Core.Interfaces
+@using Core.Interfaces.CustomService
+
+<div class="d-flex">
+    <a href="Identity/Account/Manage">
+        <a>@FullName</a>
+        <img src="@ImageSource"/>
+    </a>
+    
+</div>
+
+@code {
+
+    [Inject] public IUserService _UserService { get; set; }
+
+    [Parameter]
+    public string UserIdentity { get; set; }
+
+    private string FullName { get; set; }
+
+    private string ImageSource { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await SetFullNameImage();
+    }
+
+    private async Task SetFullNameImage()
+    {
+        var data = await _UserService.GetFullNameImageAsync(UserIdentity);
+        FullName = data.FirstName + " " + data.LastName;
+        ImageSource = data.AvatarImage;
+    }
+}
