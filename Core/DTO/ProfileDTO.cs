@@ -23,5 +23,6 @@ namespace Core.DTO
         [Display(Name = "Birth Day")]
         public DateTime BirthDay { get; set; }
         public bool EmailConfirmed { get; set; }
+        public string AvatarImage { get; set; }
     }
 }

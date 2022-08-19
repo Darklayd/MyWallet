@@ -9,7 +9,8 @@ namespace Core.Interfaces.CustomService
     {
         string GetCurrentUserNameIdentifier(ClaimsPrincipal currentUser);
         Task<string> GetUserRoleAsync(User user);
-        Task<ProfileDTO> GetProfileUser(string id);
-        Task<UserFullNameDTO> GetUserFullNameAsync(string userId);
+        Task<ProfileDTO> GetProfileUserAsync(string id);
+        Task<UserFullNameDTO> GetFullNameImageAsync(string userId);
+        Task EditProfileAsync(ProfileDTO profile);
     }
 }

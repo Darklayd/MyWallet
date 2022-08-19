@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Components;
 using System;
 using System.Reflection.Metadata;
 using System.Threading.Tasks;
+using Core.Constants;
 
 namespace Api.Components
 {
@@ -18,47 +19,40 @@ namespace Api.Components
 
         public RazorProfileModel()
         {
-            Profile = new ProfileDTO()
-            {
-                Id = "", 
-                FirstName = "Connect problem", 
-                LastName = "Connect problem", 
-                Email = "Connect problem",
-                EmailConfirmed = false
-            };
+            SetDefaultProfile();
         }
 
-        protected void HandleValidSubmit()
+        protected async Task ChangProfile()
         {
-            // Process the valid form
-            throw new NotImplementedException();
-        }
-
-        protected void ChangProfile()
-        {
-            //throw new NotImplementedException();
+            await _UserService.EditProfileAsync(Profile);
         }
 
         public async Task GetUserId()
         {
             if (UserId != null)
             {
-                Profile = await _UserService.GetProfileUser(UserId);
+                Profile = await _UserService.GetProfileUserAsync(UserId);
                 if (Profile == null)
-                    Profile = new ProfileDTO()
-                    {
-                        Id = "",
-                        FirstName = "Connect problem",
-                        LastName = "Connect problem",
-                        Email = "Connect problem",
-                        EmailConfirmed = false
-                    };
+                    SetDefaultProfile();
             }
         }
 
         protected override async Task OnInitializedAsync()
         {
             await GetUserId();
+        }
+
+        private void SetDefaultProfile()
+        {
+            Profile = new ProfileDTO()
+            {
+                Id = "",
+                FirstName = "Connect problem",
+                LastName = "Connect problem",
+                Email = "Connect problem",
+                EmailConfirmed = false,
+                AvatarImage = ProfileAvatar.Default
+            };
         }
     }
 }

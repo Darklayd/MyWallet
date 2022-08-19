@@ -14,6 +14,7 @@ using System.Linq;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
+using Core.Constants;
 
 namespace Api.Areas.Identity.Pages.Account
 {
@@ -96,7 +97,8 @@ namespace Api.Areas.Identity.Pages.Account
                     Email = Input.Email, 
                     FirstName = Input.FirstName, 
                     LastName = Input.LastName,
-                    BirthDay = Input.BirthDay
+                    BirthDay = Input.BirthDay,
+                    AvatarImage = ProfileAvatar.Default 
                 };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)

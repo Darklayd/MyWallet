@@ -10,6 +10,7 @@ namespace Core.AutoMapper.ApplicationProfiles
         public UserProfile()
         {
             CreateMap<User, ProfileDTO>();
+            CreateMap<User, UserFullNameDTO>();
         }
     }
 }

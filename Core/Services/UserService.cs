@@ -31,7 +31,7 @@ namespace Core.Services
 
         }
 
-        public async Task<ProfileDTO> GetProfileUser(string id)
+        public async Task<ProfileDTO> GetProfileUserAsync(string id)
         {
             if (id != null)
             {
@@ -70,6 +70,38 @@ namespace Core.Services
             }
 
             return _mapper.Map<UserFullNameDTO>(user);
+        }
+
+        public async Task<UserFullNameDTO> GetFullNameImageAsync(string userId)
+        {
+            var user = await _userRepository.GetByIdAsync(userId);
+
+            if (user == null)
+            {
+                throw new HttpException(ErrorMessages.RoleNotFound, HttpStatusCode.NotFound);
+            }
+
+            return _mapper.Map<UserFullNameDTO>(user);
+        }
+
+        public async Task EditProfileAsync(ProfileDTO profile)
+        {
+            if (profile == null)
+            {
+                throw new HttpException(ErrorMessages.RoleNotFound, HttpStatusCode.NotFound);
+            }
+
+            var user = await _userRepository.GetByIdAsync(profile.Id);
+
+            if (user == null)
+            {
+                throw new HttpException(ErrorMessages.RoleNotFound, HttpStatusCode.NotFound);
+            }
+
+            user.FirstName = profile.FirstName;
+            user.LastName = profile.LastName;
+            user.AvatarImage = profile.AvatarImage;
+            await _userRepository.UpdateAsync(user);
         }
     }
 }

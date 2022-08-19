@@ -2,10 +2,13 @@
 
 @inherits RazorProfileModel
 
-<div class="row">
-    <div class="col-md-4">
-        <EditForm Model="@Profile" OnValidSubmit="@HandleValidSubmit">
-            <DataAnnotationsValidator />
+<div class="row d-flex justify-content-center">
+    <div>
+        <img src="@Profile.AvatarImage"/>
+    </div>
+    <div class="col-md-5">
+        <EditForm Model="@Profile">
+            <DataAnnotationsValidator/>
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <InputText type="hidden" @bind-Value="Profile.Id"/>
             <div class="form-group">
