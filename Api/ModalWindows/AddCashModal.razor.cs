@@ -65,7 +65,6 @@ namespace Api.ModalWindows
                 UserId = HttpContextAccessor.HttpContext.User
                     .FindFirstValue(ClaimTypes.NameIdentifier);
                 Cards = await CardService.GetCardsByUser(UserId);
-                Thread.Sleep(1000);
             }
             catch (Exception e)
             {

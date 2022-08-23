@@ -1,10 +1,8 @@
 ﻿@page "/"
 @using Microsoft.AspNetCore.Components
 @using IgniteUI.Blazor.Controls
-@using Core.DTO.JsonModels
 @using System.Text.Json
 @using System.Text.Json.Serialization
-@using System.Threading
 @using Api.ModalWindows
 @using Core.DTO
 @using Core.Interfaces.CustomService
@@ -100,7 +98,6 @@
         {
             HttpClient = new HttpClient();
             await SetDataAsync();
-            Thread.Sleep(2000);
             TypeMoneyList = await TypeMoneyService.GetListAsync();
         }catch (Exception e)
         {
@@ -113,9 +110,17 @@
 
     protected async Task OnReloadChart()
     {
-        await SetDataAsync();
-        Thread.Sleep(1000);
-        await this.Chart.ReplayTransitionInAsync();
+        try
+        {
+            await SetDataAsync();
+            await this.Chart.ReplayTransitionInAsync();
+        }
+        catch (Exception e)
+        {
+            var parameters = new ModalParameters();
+            parameters.Add(nameof(e.Message), e.Message);
+            Modal.Show<ErrorModal>("Error", parameters);
+        }
     }
 
     async Task SetDataAsync()

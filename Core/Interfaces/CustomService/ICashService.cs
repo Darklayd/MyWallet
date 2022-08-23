@@ -6,6 +6,6 @@ namespace Core.Interfaces.CustomService
     public interface ICashService
         {
             Task AddCashAsync(CashModal cash);
-            Task RemainderCashAsync(double remainder, string typeMoney);
+            Task RemainderCashAsync(double remainder, string typeMoney, CashModal toCash);
         }
 }

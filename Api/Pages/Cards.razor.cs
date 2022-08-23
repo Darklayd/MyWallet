@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Security.Claims;
-using System.Threading;
 using System.Threading.Tasks;
 using Api.ModalWindows;
 using Blazored.Modal;
@@ -62,7 +61,6 @@ namespace Api.Pages
             try
             {
                 await CardService.DeleteCardByNumber(number);
-                Thread.Sleep(1000);
                 await ShowCardsAsync(UserId);
                 StateHasChanged();
             }
