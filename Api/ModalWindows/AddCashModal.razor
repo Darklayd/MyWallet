@@ -1,0 +1,44 @@
+﻿@inherits AddCashModalComponent
+
+<div>
+    <p>Enter money properties</p>
+    <EditForm Model="@Cash">
+        <DataAnnotationsValidator/>
+
+        <div class="input-group input-group-sm mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroup-sizing-default">Card</span>
+                <InputSelect class="form-control" aria-label="Default" @bind-Value="@Cash.CardNumber">
+                    @if(Cards != null){
+                        @foreach (var item in Cards){
+                            <option value="@item.Number">**** **** **** @item.Number.Remove(0,12) (@item.Type)</option>
+                        }
+                    }
+                </InputSelect>
+            </div>
+        </div>
+
+        <ValidationMessage For="() => Cash.Count"/>
+        <div class="input-group input-group-sm mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroup-sizing-default">Count</span>
+                <InputNumber class="form-control" aria-label="Default" TValue="double" @bind-Value="@Cash.Count"></InputNumber>
+            </div>
+        </div>
+        
+        <ValidationMessage For="() => Cash.TypeMoneyId"/>
+        <div class="input-group input-group-sm mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroup-sizing-default">Type Money</span>
+                <InputSelect class="form-control" aria-label="Default" @bind-Value="@Cash.TypeMoneyId">
+                    @if(TypeMoneyList != null){
+                        @foreach (var item in TypeMoneyList){
+                            <option value="@item.Id">@item.FullName (@item.Name)</option>
+                        }
+                    }
+                </InputSelect>
+            </div>
+        </div>
+        <button @onclick="AddCash" class="btn btn-primary">Add Cash</button>
+    </EditForm>
+</div>

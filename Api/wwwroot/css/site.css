@@ -1,3 +1,7 @@
+/* 
+CSS styles are loaded from the shared CSS file located at:
+https://static.infragistics.com/xplatform/css/samples/
+*/
 @import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
 
 html, body {

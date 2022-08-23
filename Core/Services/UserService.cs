@@ -4,12 +4,13 @@ using Core.Entities.UserEntity;
 using Core.Exceptions;
 using Core.Interfaces;
 using Core.Interfaces.CustomService;
+using Core.Modals;
+using Core.Resources;
 using Microsoft.AspNetCore.Identity;
 using System.Linq;
 using System.Net;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using Core.Resources;
 
 namespace Core.Services
 {
@@ -31,12 +32,12 @@ namespace Core.Services
 
         }
 
-        public async Task<ProfileDTO> GetProfileUserAsync(string id)
+        public async Task<ProfileModal> GetProfileUserAsync(string id)
         {
             if (id != null)
             {
                 var User = await _userRepository.GetByIdAsync(id);
-                return _mapper.Map<ProfileDTO>(User);
+                return _mapper.Map<ProfileModal>(User);
             }
             else
             {
@@ -60,13 +61,14 @@ namespace Core.Services
 
             return userRoles.First();
         }
+
         public async Task<UserFullNameDTO> GetUserFullNameAsync(string userId)
         {
             var user = await _userManager.FindByIdAsync(userId);
 
             if (user == null)
             {
-                throw new HttpException(ErrorMessages.RoleNotFound, HttpStatusCode.NotFound);
+                throw new HttpException(ErrorMessages.UserNotFound, HttpStatusCode.NotFound);
             }
 
             return _mapper.Map<UserFullNameDTO>(user);
@@ -78,24 +80,24 @@ namespace Core.Services
 
             if (user == null)
             {
-                throw new HttpException(ErrorMessages.RoleNotFound, HttpStatusCode.NotFound);
+                throw new HttpException(ErrorMessages.UserNotFound, HttpStatusCode.NotFound);
             }
 
             return _mapper.Map<UserFullNameDTO>(user);
         }
 
-        public async Task EditProfileAsync(ProfileDTO profile)
+        public async Task EditProfileAsync(ProfileModal profile)
         {
             if (profile == null)
             {
-                throw new HttpException(ErrorMessages.RoleNotFound, HttpStatusCode.NotFound);
+                throw new HttpException(ErrorMessages.ProfileNotFound, HttpStatusCode.NotFound);
             }
 
             var user = await _userRepository.GetByIdAsync(profile.Id);
 
             if (user == null)
             {
-                throw new HttpException(ErrorMessages.RoleNotFound, HttpStatusCode.NotFound);
+                throw new HttpException(ErrorMessages.UserNotFound, HttpStatusCode.NotFound);
             }
 
             user.FirstName = profile.FirstName;

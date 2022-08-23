@@ -1,5 +1,114 @@
 ﻿@page "/"
+@using Microsoft.AspNetCore.Components
+@using IgniteUI.Blazor.Controls
+@using Core.DTO.JsonModels
+@using System.Text.Json
+@using System.Text.Json.Serialization
+@using System.Threading
+@using Core.DTO
+@using Core.Interfaces.CustomService
 
-<h1>Hello, world!</h1>
 
-Welcome to your new app.
+<h1>Welcome to MY Wallet!</h1>
+
+<div class="options horizontal">
+    <span class="options-label">Type Money</span>
+    <select class="form-control" @bind="@TypeMoney">
+        @if (TypeMoneyList != null)
+        {
+            @foreach (var item in TypeMoneyList)
+            {
+                <option value="@item.Name">@item.FullName (@item.Name)</option>
+            }
+        }
+    </select>
+    
+    <span class="options-label">Start Date</span>
+    <input class="form-control" @bind="@StartDate"></input>
+    
+    <span class="options-label">End Date</span>
+    <input class="form-control" @bind="@EndDate"></input>
+    
+    <button @onclick="OnReloadChart">Reload Chart</button>
+</div>
+
+<div class="container vertical">
+
+    <div style="height: 500px" class="container vertical">
+        @if (Data != null)
+        {
+            <IgbCategoryChart Height="100%" Width="100%"
+                              @ref="Chart"
+                              DataSource="Data"
+                              ChartType="CategoryChartType.Line"
+                              IsTransitionInEnabled="true"
+                              TransitionInMode="@CategoryTransitionInMode.Auto"
+                              TransitionInDuration="2000"
+                              IsHorizontalZoomEnabled="false"
+                              IsVerticalZoomEnabled="false"
+                              YAxisTitle="UAH"
+                              YAxisTitleLeftMargin="10"
+                              YAxisTitleRightMargin="5"
+                              YAxisLabelLeftMargin="0"
+                              ComputedPlotAreaMarginMode=ComputedPlotAreaMarginMode.Series>
+            </IgbCategoryChart>
+        }
+    </div>
+</div>
+
+
+@code {
+    [Inject]
+    public ITypeMoneyService TypeMoneyService { get; set; }
+
+    public List<TypeMoneyInfoDTO> TypeMoneyList { get; set; }
+
+    protected string TypeMoney { get; set; } = "USD";
+
+    protected string StartDate { get; set; } = DateTime.UtcNow.ToString($"{DateTime.UtcNow.Year - 1}.MM.dd");
+    protected string EndDate { get; set; } = DateTime.UtcNow.ToString("yyyy.MM.dd");
+
+    private IgbCategoryChart _Chart;
+    private IgbCategoryChart Chart
+    {
+        get { return _Chart; }
+        set { _Chart = value;
+            StateHasChanged();
+        }
+    }
+
+    private List<RateItem> Data;
+
+    class RateItem
+        {
+            [JsonPropertyName("exchangedate")]
+            public string Date { get; set; }
+            [JsonPropertyName("rate")] 
+            public double Rate_UAH { get; set; }
+        }
+
+    public HttpClient HttpClient { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        HttpClient = new HttpClient();
+        await SetDataAsync();
+        Thread.Sleep(1000);
+        TypeMoneyList = await TypeMoneyService.GetListAsync();
+    }
+
+    protected async Task OnReloadChart()
+    {
+        await SetDataAsync();
+        await this.Chart.ReplayTransitionInAsync();
+    }
+
+    async Task SetDataAsync()
+    {
+        var dataJson = await HttpClient
+            .GetStringAsync(
+                $"https://bank.gov.ua/NBU_Exchange/exchange_site?start={StartDate.Replace(".","")}&end={EndDate.Replace(".","")}&valcode={TypeMoney.ToLower()}&sort=exchangedate&order=desc&json");
+
+        Data = JsonSerializer.Deserialize<List<RateItem>>(dataJson);
+    }
+}

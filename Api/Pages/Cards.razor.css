@@ -1,0 +1,54 @@
+﻿button {
+    margin-right: 20px;
+}
+
+.btn-card {
+    background-color: rgb(168, 111, 206);
+}
+
+img {
+    height: 30px;
+    margin-right: 10px;
+}
+
+.dateAdded {
+    justify-content: right;
+    width: 30%;
+    padding-left: 20px;
+}
+
+.CVC2 {
+    justify-content: right;
+    width: 50%;
+}
+
+.number {
+    width: 70%;
+}
+
+.cardTerm {
+    width: 50%;
+}
+
+.delete {
+    width: 50%;
+    color: crimson;
+    cursor: pointer;
+}
+
+.delete:hover {
+    color: tomato;
+}
+
+.logo {
+    width: 50%;
+    justify-content: right;
+}
+
+.card {
+    padding: 20px;
+    border-radius: 20px;
+    background-color: whitesmoke;
+    margin-right: 20px;
+    margin-bottom: 20px;
+}

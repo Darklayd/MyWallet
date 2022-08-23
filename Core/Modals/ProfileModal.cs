@@ -1,9 +1,9 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Core.DTO
+namespace Core.Modals
 {
-    public class ProfileDTO
+    public class ProfileModal
     {
         public string Id { get; set; }
         [Required]

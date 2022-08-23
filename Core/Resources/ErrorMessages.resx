@@ -201,4 +201,7 @@
   <data name="ReportNotFound" xml:space="preserve">
     <value>Report not found</value>
   </data>
+  <data name="WalletNotFound" xml:space="preserve">
+    <value>Wallet not found!</value>
+  </data>
 </root>

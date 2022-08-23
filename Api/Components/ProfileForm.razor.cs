@@ -1,10 +1,10 @@
-﻿using Core.DTO;
-using Core.Interfaces.CustomService;
+﻿using Core.Interfaces.CustomService;
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Reflection.Metadata;
 using System.Threading.Tasks;
 using Core.Constants;
+using Core.Modals;
 
 namespace Api.Components
 {
@@ -15,7 +15,7 @@ namespace Api.Components
         [Parameter]
         public string UserId { get; set; }
 
-        public ProfileDTO Profile { get; set; }
+        public ProfileModal Profile { get; set; }
 
         public RazorProfileModel()
         {
@@ -44,7 +44,7 @@ namespace Api.Components
 
         private void SetDefaultProfile()
         {
-            Profile = new ProfileDTO()
+            Profile = new ProfileModal()
             {
                 Id = "",
                 FirstName = "Connect problem",

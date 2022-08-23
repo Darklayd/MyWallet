@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Core.DTO;
 using Core.Entities.UserEntity;
-using Microsoft.AspNetCore.Identity;
+using Core.Modals;
 
 namespace Core.AutoMapper.ApplicationProfiles
 {
@@ -9,7 +9,7 @@ namespace Core.AutoMapper.ApplicationProfiles
     {
         public UserProfile()
         {
-            CreateMap<User, ProfileDTO>();
+            CreateMap<User, ProfileModal>();
             CreateMap<User, UserFullNameDTO>();
         }
     }
