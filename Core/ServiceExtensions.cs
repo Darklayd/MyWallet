@@ -11,6 +11,10 @@ namespace Core
         public static void AddCustomServices(this IServiceCollection services)
         {
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IWalletService, WalletService>();
+            services.AddScoped<ICardService, CardService>();
+            services.AddScoped<ITypeMoneyService, TypeMoneyService>();
+            services.AddScoped<ICashService, CashService>();
         }
 
         public static void AddAutoMapper(this IServiceCollection services)
@@ -18,6 +22,10 @@ namespace Core
             var configures = new MapperConfiguration(mc =>
             {
                 mc.AddProfile(new UserProfile());
+                mc.AddProfile(new WalletProfile());
+                mc.AddProfile(new TypeMoneyProfile());
+                mc.AddProfile(new CardProfile());
+                mc.AddProfile(new CashProfile());
             });
 
             var mapper = configures.CreateMapper();

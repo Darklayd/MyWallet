@@ -1,0 +1,82 @@
+﻿@using Microsoft.AspNetCore.Components
+@using Api.Constants
+@using Api.Pages
+@using Core.Interfaces.CustomService
+@using Core.Modals
+
+<div>
+    <p>Enter name your card</p>
+    <EditForm Model="@Card">
+        <DataAnnotationsValidator/>
+        <div>
+
+            <ValidationMessage For="() => Card.Number"/>
+            <div class="input-group input-group-sm mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-default">Number</span>
+                    <InputText class="form-control" aria-label="Default" @bind-Value="@Card.Number"></InputText>
+                </div>
+            </div>
+
+            <ValidationMessage For="() => Card.CardTerm"/>
+            <div class="input-group input-group-sm mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-default">Card Term</span>
+                    <InputDate class="form-control" aria-label="Default" @bind-Value="@Card.CardTerm"></InputDate>
+                </div>
+            </div>
+
+            <div class="input-group input-group-sm mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-default">Card Type</span>
+                    <InputSelect class="form-control" aria-label="Default" @bind-Value="@Card.Type">
+                        @foreach (var item in TypeCard.GetList())
+                        {
+                            <option value="@item.TypeName">@item.TypeName</option>
+                        }
+                    </InputSelect>
+                    <img src="@TypeCard.GetList().FirstOrDefault(c => c.TypeName == Card.Type).ImageSrc"/>
+                </div>
+            </div>
+            
+            <ValidationMessage For="() => Card.CVC2"/>
+            <div class="input-group input-group-sm mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-default">CVC2</span>
+                    <InputText class="form-control" aria-label="Default" @bind-Value="@Card.CVC2"></InputText>
+                </div>
+            </div>
+        </div>
+        <button @onclick="AddCard" class="btn btn-primary">Add Card</button>
+    </EditForm>
+</div>
+
+@code {
+    [CascadingParameter] BlazoredModalInstance BlazoredModal { get; set; } = default!;
+
+    [Inject]
+    public ICardService CardService { get; set; }  
+    
+    [Parameter]
+    public Cards CardsComponent { get; set; }
+    
+    [Parameter]
+    public string UserId { get; set; }
+
+    protected CardModel Card { get; set; }
+
+    protected override void OnParametersSet()
+    {
+        Card = new CardModel(){Type = TypeCard.Visa.TypeName};
+    }
+
+    async Task AddCard()
+    {
+        Card.Logo = TypeCard.GetList().FirstOrDefault(c => c.TypeName == Card.Type).ImageSrc;
+        Card.UserId = UserId;
+        await CardService.AddCardAsync(Card);
+        await CardsComponent.Rerender();
+        await BlazoredModal.CloseAsync(ModalResult.Ok(true));
+    }
+
+}

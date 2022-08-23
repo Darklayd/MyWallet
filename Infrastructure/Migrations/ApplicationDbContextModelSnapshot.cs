@@ -19,21 +19,6 @@ namespace Infrastructure.Migrations
                 .HasAnnotation("ProductVersion", "5.0.17")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Core.Entities.BankEntity.Bank", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Banks");
-                });
-
             modelBuilder.Entity("Core.Entities.CardEntity.Card", b =>
                 {
                     b.Property<int>("Id")
@@ -41,11 +26,8 @@ namespace Infrastructure.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("BankId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CVC2")
-                        .HasColumnType("int");
+                    b.Property<string>("CVC2")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CardTerm")
                         .HasColumnType("datetime2");
@@ -56,20 +38,18 @@ namespace Infrastructure.Migrations
                     b.Property<string>("Logo")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Number")
-                        .HasColumnType("int");
+                    b.Property<string>("Number")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Type")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("WalletId")
-                        .HasColumnType("int");
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BankId");
-
-                    b.HasIndex("WalletId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Cards");
                 });
@@ -81,13 +61,13 @@ namespace Infrastructure.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("Count")
+                    b.Property<double>("Count")
+                        .HasColumnType("float");
+
+                    b.Property<int>("TypeMoneyId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("TypeMoneyId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("WalletId")
+                    b.Property<int>("WalletId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -106,12 +86,395 @@ namespace Infrastructure.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("FullName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.ToTable("TypesMonies");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            FullName = "Гривня",
+                            Name = "UAH"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            FullName = "Австралійський долар",
+                            Name = "AUD"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            FullName = "Канадський долар",
+                            Name = "CAD"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            FullName = "Юань Женьміньбі",
+                            Name = "CNY"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            FullName = "Куна",
+                            Name = "HRK"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            FullName = "Чеська крона",
+                            Name = "CZK"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            FullName = "Данська крона",
+                            Name = "DKK"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            FullName = "Гонконгівський долар",
+                            Name = "HKD"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            FullName = "Форинт",
+                            Name = "HUF"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            FullName = "Індійська рупія",
+                            Name = "INR"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            FullName = "Рупія",
+                            Name = "IDR"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            FullName = "Новий ізраїльський шекель",
+                            Name = "ILS"
+                        },
+                        new
+                        {
+                            Id = 13,
+                            FullName = "Єна",
+                            Name = "JPY"
+                        },
+                        new
+                        {
+                            Id = 14,
+                            FullName = "Теньге",
+                            Name = "KZT"
+                        },
+                        new
+                        {
+                            Id = 15,
+                            FullName = "Вона",
+                            Name = "KRW"
+                        },
+                        new
+                        {
+                            Id = 16,
+                            FullName = "Мексиканське песо",
+                            Name = "MXN"
+                        },
+                        new
+                        {
+                            Id = 17,
+                            FullName = "Молдовський лей",
+                            Name = "MDL"
+                        },
+                        new
+                        {
+                            Id = 18,
+                            FullName = "Новозеландський долар",
+                            Name = "NZD"
+                        },
+                        new
+                        {
+                            Id = 19,
+                            FullName = "Норвезька крона",
+                            Name = "NOK"
+                        },
+                        new
+                        {
+                            Id = 20,
+                            FullName = "Російський рубль",
+                            Name = "RUB"
+                        },
+                        new
+                        {
+                            Id = 21,
+                            FullName = "Сінгапурський долар",
+                            Name = "SGD"
+                        },
+                        new
+                        {
+                            Id = 22,
+                            FullName = "Ренд",
+                            Name = "ZAR"
+                        },
+                        new
+                        {
+                            Id = 23,
+                            FullName = "Шведська крона",
+                            Name = "SEK"
+                        },
+                        new
+                        {
+                            Id = 24,
+                            FullName = "Швейцарський франк",
+                            Name = "CHF"
+                        },
+                        new
+                        {
+                            Id = 25,
+                            FullName = "Єгипетський фунт",
+                            Name = "EGP"
+                        },
+                        new
+                        {
+                            Id = 26,
+                            FullName = "Фунт стерлінгів",
+                            Name = "GBP"
+                        },
+                        new
+                        {
+                            Id = 27,
+                            FullName = "Долар США",
+                            Name = "USD"
+                        },
+                        new
+                        {
+                            Id = 28,
+                            FullName = "Білоруський рубль",
+                            Name = "BYN"
+                        },
+                        new
+                        {
+                            Id = 29,
+                            FullName = "Азербайджанський манат",
+                            Name = "AZN"
+                        },
+                        new
+                        {
+                            Id = 30,
+                            FullName = "Румунський лей",
+                            Name = "RON"
+                        },
+                        new
+                        {
+                            Id = 31,
+                            FullName = "Турецька ліра",
+                            Name = "TRY"
+                        },
+                        new
+                        {
+                            Id = 32,
+                            FullName = "СПЗ (спеціальні права запозичення)",
+                            Name = "XDR"
+                        },
+                        new
+                        {
+                            Id = 33,
+                            FullName = "Болгарський лев",
+                            Name = "BGN"
+                        },
+                        new
+                        {
+                            Id = 34,
+                            FullName = "Євро",
+                            Name = "EUR"
+                        },
+                        new
+                        {
+                            Id = 35,
+                            FullName = "Злотий",
+                            Name = "PLN"
+                        },
+                        new
+                        {
+                            Id = 36,
+                            FullName = "Алжирський динар",
+                            Name = "DZD"
+                        },
+                        new
+                        {
+                            Id = 37,
+                            FullName = "Така",
+                            Name = "BDT"
+                        },
+                        new
+                        {
+                            Id = 38,
+                            FullName = "Вірменський драм",
+                            Name = "AMD"
+                        },
+                        new
+                        {
+                            Id = 39,
+                            FullName = "Домініканське песо",
+                            Name = "DOP"
+                        },
+                        new
+                        {
+                            Id = 40,
+                            FullName = "Іранський ріал",
+                            Name = "IRR"
+                        },
+                        new
+                        {
+                            Id = 41,
+                            FullName = "Іракський динар",
+                            Name = "IQD"
+                        },
+                        new
+                        {
+                            Id = 42,
+                            FullName = "Сом",
+                            Name = "KGS"
+                        },
+                        new
+                        {
+                            Id = 43,
+                            FullName = "Ліванський фунт",
+                            Name = "LBP"
+                        },
+                        new
+                        {
+                            Id = 44,
+                            FullName = "Лівійський динар",
+                            Name = "LYD"
+                        },
+                        new
+                        {
+                            Id = 45,
+                            FullName = "Малайзійський ринггіт",
+                            Name = "MYR"
+                        },
+                        new
+                        {
+                            Id = 46,
+                            FullName = "Марокканський дирхам",
+                            Name = "MAD"
+                        },
+                        new
+                        {
+                            Id = 47,
+                            FullName = "Пакистанська рупія",
+                            Name = "PKR"
+                        },
+                        new
+                        {
+                            Id = 48,
+                            FullName = "Саудівський ріял",
+                            Name = "SAR"
+                        },
+                        new
+                        {
+                            Id = 49,
+                            FullName = "Донг",
+                            Name = "VND"
+                        },
+                        new
+                        {
+                            Id = 50,
+                            FullName = "Бат",
+                            Name = "THB"
+                        },
+                        new
+                        {
+                            Id = 51,
+                            FullName = "Дирхам ОАЕ",
+                            Name = "AED"
+                        },
+                        new
+                        {
+                            Id = 52,
+                            FullName = "Туніський динар",
+                            Name = "TND"
+                        },
+                        new
+                        {
+                            Id = 53,
+                            FullName = "Узбецький сум",
+                            Name = "UZS"
+                        },
+                        new
+                        {
+                            Id = 54,
+                            FullName = "Новий тайванський долар",
+                            Name = "TWD"
+                        },
+                        new
+                        {
+                            Id = 55,
+                            FullName = "Туркменський новий манат",
+                            Name = "TMT"
+                        },
+                        new
+                        {
+                            Id = 56,
+                            FullName = "Сербський динар",
+                            Name = "RSD"
+                        },
+                        new
+                        {
+                            Id = 57,
+                            FullName = "Сомоні",
+                            Name = "TJS"
+                        },
+                        new
+                        {
+                            Id = 58,
+                            FullName = "Ларі",
+                            Name = "GEL"
+                        },
+                        new
+                        {
+                            Id = 59,
+                            FullName = "Бразильський реал",
+                            Name = "BRL"
+                        },
+                        new
+                        {
+                            Id = 60,
+                            FullName = "Золото",
+                            Name = "XAU"
+                        },
+                        new
+                        {
+                            Id = 61,
+                            FullName = "Срібло",
+                            Name = "XAG"
+                        },
+                        new
+                        {
+                            Id = 62,
+                            FullName = "Платина",
+                            Name = "XPT"
+                        },
+                        new
+                        {
+                            Id = 63,
+                            FullName = "Паладій",
+                            Name = "XPD"
+                        });
                 });
 
             modelBuilder.Entity("Core.Entities.WalletEntity.Wallet", b =>
@@ -364,28 +727,26 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Core.Entities.CardEntity.Card", b =>
                 {
-                    b.HasOne("Core.Entities.BankEntity.Bank", "Bank")
-                        .WithMany("Cards")
-                        .HasForeignKey("BankId");
+                    b.HasOne("Core.Entities.UserEntity.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
 
-                    b.HasOne("Core.Entities.WalletEntity.Wallet", "Wallet")
-                        .WithMany("Cards")
-                        .HasForeignKey("WalletId");
-
-                    b.Navigation("Bank");
-
-                    b.Navigation("Wallet");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Core.Entities.CashEntity.Cash", b =>
                 {
                     b.HasOne("Core.Entities.TypesMoney.TypeMoney", "TypeMoney")
                         .WithMany("Cash")
-                        .HasForeignKey("TypeMoneyId");
+                        .HasForeignKey("TypeMoneyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Core.Entities.WalletEntity.Wallet", "Wallet")
                         .WithMany("Cash")
-                        .HasForeignKey("WalletId");
+                        .HasForeignKey("WalletId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("TypeMoney");
 
@@ -452,11 +813,6 @@ namespace Infrastructure.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Core.Entities.BankEntity.Bank", b =>
-                {
-                    b.Navigation("Cards");
-                });
-
             modelBuilder.Entity("Core.Entities.TypesMoney.TypeMoney", b =>
                 {
                     b.Navigation("Cash");
@@ -464,8 +820,6 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Core.Entities.WalletEntity.Wallet", b =>
                 {
-                    b.Navigation("Cards");
-
                     b.Navigation("Cash");
                 });
 

@@ -1,0 +1,116 @@
+﻿@using Microsoft.AspNetCore.Components
+@using Core.Interfaces.CustomService
+@using Core.Modals
+@using Core.Services
+@using Api.Pages
+@using Core.DTO
+
+
+<div>
+    <p>Enter convert properties </p>
+    
+    <EditForm Model="@ToMoneyType">
+        <div class="input-group input-group-sm mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroup-sizing-default">From</span>
+                <span class="value form-control" aria-label="Default">@Math.Round(Amount)</span>
+                <span class="input-group-text" id="inputGroup-sizing-default">@TypeMoney</span>
+                <span class="form-control">-@Math.Round(CostConvert, 2)</span>
+            </div>
+        </div>
+        
+        <div class="input-group input-group-sm mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroup-sizing-default">To</span>
+                <InputNumber class="form-control" aria-label="Default" TValue="double" @bind-Value="@ToMoneyType.Count"></InputNumber>
+                <InputSelect class="form-control" aria-label="Default" TValue="int" @bind-Value="@ToMoneyType.TypeMoneyId">
+                    @if(TypeMoneyList != null){
+                        @foreach (var item in TypeMoneyList){
+                            <option value="@item.Id">@item.FullName (@item.Name)</option>
+                        }
+                    }
+                </InputSelect>
+            </div>
+        </div>
+
+        <button @onclick="CalcConvertCash" class="mb-3 btn btn-secondary">Calc</button>
+        
+        <div class="input-group input-group-sm mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroup-sizing-default">Remainder</span>
+                <span class="value form-control">@Math.Round(Remainder,2)</span>
+                <span class="input-group-text" id="inputGroup-sizing-default">@TypeMoney</span>
+            </div>
+        </div>
+
+        <button @onclick="ConvertCash" class="btn btn-primary">Add Cash</button>
+    </EditForm>
+</div>
+
+@code {
+    [CascadingParameter] BlazoredModalInstance BlazoredModal { get; set; } = default!;
+
+    [Inject]
+    public ICashService CashService { get; set; }
+
+    [Inject]
+    public ITypeMoneyService TypeMoneyService { get; set; }
+
+    [Parameter]
+    public double Amount { get; set; }
+
+    [Parameter]
+    public string TypeMoney { get; set; }
+
+    [Parameter]
+    public WalletPageComponent WalletPageComponent { get; set; }
+
+    protected double Remainder { get; set; }
+
+    protected double CostConvert { get; set; }
+
+    private CurrencyConverterService converterService { get; set; }
+
+    protected CashModal ToMoneyType { get; set; } = new CashModal() {Count = 0, TypeMoneyId = 1};
+
+    protected List<TypeMoneyInfoDTO> TypeMoneyList { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        converterService = new CurrencyConverterService();
+
+        await CalcConvertCash();
+
+        TypeMoneyList = await TypeMoneyService.GetListAsync();
+    }
+
+    protected async Task ConvertCash()
+    {
+        if (Remainder >= 0 && Remainder != Amount)
+        {
+            ToMoneyType.WalletId = WalletPageComponent.WalletId;
+
+            await CashService.AddCashAsync(ToMoneyType);
+            await CashService.RemainderCashAsync(Remainder, TypeMoney);
+
+            WalletPageComponent.Rerender();
+        }
+
+        await BlazoredModal.CloseAsync(ModalResult.Ok(true));
+    }
+
+    protected async Task CalcConvertCash()
+    {
+        var typeMoney = await TypeMoneyService.GetByIdAsync(ToMoneyType.TypeMoneyId);
+
+        CostConvert = await converterService
+            .CurrencyConverter(new CurrencyConverterModal() 
+            {
+                FromMoneyType = TypeMoney, 
+                ToMoneyType = typeMoney.Name, 
+                Amount = ToMoneyType.Count
+
+            });
+        Remainder = Amount - CostConvert;
+    }
+}

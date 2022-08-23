@@ -1,0 +1,16 @@
+﻿button {
+    height: 35px;
+    margin-top: 7px !important;
+}
+
+select {
+    margin-top: 7px !important;
+}
+
+span {
+    margin-left: 0.25rem !important;
+}
+
+input {
+    padding-left: 10px !important;
+}

@@ -1,0 +1,31 @@
+﻿@page "/Wallets"
+
+@inherits WalletsComponent
+
+<h3>Wallets</h3>
+<hr/>
+<div class="row">
+    @if(UserWallets != null){
+        @foreach (var item in UserWallets)
+        {
+            <a class="wallet d-flex" href="wallet/@item.Id">
+                <span>Name Wallet:</span><p>@item.Name</p>
+                <div class="lock">
+                    <div class="button-d"></div>
+                </div>
+            </a>
+        }
+    }
+    else
+    {
+        <div class="col-2">
+            <p>You not have wallets</p>
+        </div>
+    }
+</div>
+<div @onclick="ShowModal" class="d-flex">
+    <button class="btn btn-primary">
+        <span class="oi oi-plus"></span>
+        <span>Add Wallet</span>
+    </button>
+</div>

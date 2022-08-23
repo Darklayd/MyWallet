@@ -1,0 +1,49 @@
+﻿@page "/Cards"
+
+@inherits CardsComponent
+
+<h3>Cards</h3>
+<hr/>
+
+<div class="row">
+    @if(Cards != null){
+        @foreach (var item in Cards)
+        {
+            <div class="card">
+                <div class="d-flex">
+
+                    <p class="number">@item.Number</p>
+                    <div class="d-flex dateAdded">
+                        <p >@item.DateAdded.ToString("dd/MM/yyyy")</p>
+                    </div>
+                </div>
+
+                <div class="d-flex">
+
+                    <p class="cardTerm">@item.CardTerm.ToString("dd/MM").Replace('.', '/')</p>
+                    <div class="d-flex CVC2">
+                        <p>@item.CVC2</p>
+                    </div>
+                </div>
+                
+                <div class="d-flex">
+                    <p @onclick="() => DeleteCard(item.Number)" class="delete">delete</p>
+                    <div class="logo d-flex"><img src="@item.Logo"/></div>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <div class="col-2">
+            <p>You not have cards</p>
+        </div>
+    }
+</div>
+
+<div class="d-buttons d-flex">
+    <button @onclick="ShowModal" class="btn-card btn btn-primary">
+        <img src="Icons/card_credit.svg" />
+        <span>Add Card</span>
+    </button>
+</div>

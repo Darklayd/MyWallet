@@ -1,0 +1,46 @@
+﻿@using Core.DTO
+@using Core.Interfaces.CustomService
+@using Api.Pages
+<div>
+    <p>Enter name your wallet</p>
+    <EditForm Model="@Wallet">
+        <DataAnnotationsValidator/>
+        <ValidationMessage For="() => Wallet.Name"/>
+        <div class="input-group input-group-sm mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroup-sizing-default">Name</span>
+                <InputText class="form-control" aria-label="Default" @bind-Value="@Wallet.Name"></InputText>
+            </div>
+        </div>
+        <InputText type="hidden" @bind-Value="@Wallet.UserId"></InputText>
+        <button @onclick="CreateWallet" class="btn btn-primary">Create Wallet</button>
+    </EditForm>
+</div>
+
+@code {
+    [CascadingParameter] BlazoredModalInstance BlazoredModal { get; set; } = default!;
+
+    [Inject]
+    public IWalletService WalletService { get; set; }
+
+    [Parameter]
+    public string? UserId { get; set; }
+
+    protected WalletModal Wallet { get; set; }
+    
+    [Parameter]
+    public Wallets WalletsComponent { get; set; }
+
+    protected override void OnParametersSet()
+    {
+        Wallet = new WalletModal();
+    }
+
+    async Task CreateWallet()
+    {
+        Wallet.UserId = UserId;
+        await WalletService.CreateWalletAsync(Wallet);
+        WalletsComponent.Rerender();
+        await BlazoredModal.CloseAsync(ModalResult.Ok(true));
+    }
+}

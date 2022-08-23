@@ -1,0 +1,39 @@
+﻿@page "/Wallet/{WalletId:int?}"
+
+@inherits WalletPageComponent
+
+<h3>@WalletInfo.Name Wallet</h3>
+<p>data creation: @WalletInfo.CreationDate.ToString("dd/MM/yyyy")</p>
+<hr />
+
+<div class="row">
+    @if (WalletInfo.Cash != null)
+    {
+        @foreach (var item in WalletInfo.Cash)
+        {
+            <div class="card">
+                <div class="d-flex">
+                    <p>@Math.Round(item.Count,2)</p>
+                    <p class="pl-2">@item.TypeMoney.Name</p>
+                </div>
+                <p>@item.TypeMoney.FullName</p>
+                <div class="d-flex justify-content-center">
+                    <button @onclick="@(e => ShowConvertModal(item.Count, item.TypeMoney.Name))" class="btn btn-secondary">Convert</button>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <div class="col-2">
+            <p>You not have cash</p>
+        </div>
+    }
+</div>
+
+<div class="d-buttons d-flex">
+    <button @onclick="ShowModal" class="btn-cash btn btn-primary">
+        <img src="Icons/money_icon.svg" />
+        <span>Add Cash</span>
+    </button>
+</div>
