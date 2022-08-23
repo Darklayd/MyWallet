@@ -14,7 +14,7 @@ namespace Infrastructure.Data
 
         public static async Task Seed(this ModelBuilder builder)
         {
-            await SeedTypeMoney(builder);
+           //await SeedTypeMoney(builder);
         }
 
         public static async Task SeedTypeMoney(ModelBuilder builder)
