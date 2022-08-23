@@ -14,10 +14,10 @@ namespace Api.Pages
 {
     public class CardsComponent: ComponentBase
     {
-        [CascadingParameter]
+        [CascadingParameter]//додаєм каскадний параметр
         public IModalService Modal { get; set; } = default!;
         
-        [Inject]
+        [Inject]// Ініціалізуєм зміну задопомогою анотації
         public IHttpContextAccessor HttpContextAccessor { get; set; } = default!;
 
         [Inject] public ICardService CardService { get; set; }
@@ -35,6 +35,7 @@ namespace Api.Pages
 
         protected async Task ShowModal()
         {
+            //Записуєм парметри модального вікна
             var parameters = new ModalParameters();
             parameters.Add(
                 nameof(AddCardModal.UserId),
@@ -42,7 +43,7 @@ namespace Api.Pages
 
             parameters.Add(nameof(AddCardModal.CardsComponent),
                 this);
-
+            // викликаєм модальне вікно
             Modal.Show<AddCardModal>("Add Card", parameters);
         }
 
