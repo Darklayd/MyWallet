@@ -43,8 +43,6 @@ namespace Api
 
             services.AddRepositories();
 
-            services.AddFluentValidation();
-
             services.AddRazorPages();
 
             services.AddServerSideBlazor();
