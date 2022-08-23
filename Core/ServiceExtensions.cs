@@ -31,11 +31,5 @@ namespace Core
             var mapper = configures.CreateMapper();
             services.AddSingleton(mapper);
         }
-
-        public static void AddFluentValidation(this IServiceCollection services)
-        {
-            // приклад підкулючення валідації вхідних даних
-            // services.AddFluentValidation(c => c.RegisterValidatorsFromAssemblyContaining<UserRegistrationValidation>());
-        }
     }
 }
