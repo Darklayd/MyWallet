@@ -1,7 +1,9 @@
 using Api.Areas.Identity;
 using Api.Data;
+using Blazored.Modal;
 using Core;
 using Core.Entities.UserEntity;
+using IgniteUI.Blazor.Controls;
 using Infrastructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components.Authorization;
@@ -50,6 +52,15 @@ namespace Api
             services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<User>>();
 
             services.AddDatabaseDeveloperPageExceptionFilter();
+
+            services.AddBlazoredModal();
+
+            services.AddIgniteUIBlazor(
+                typeof(IgbLegendModule),
+                typeof(IgbInputModule),
+                typeof(IgbPropertyEditorPanelModule),
+                typeof(IgbCategoryChartModule));
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

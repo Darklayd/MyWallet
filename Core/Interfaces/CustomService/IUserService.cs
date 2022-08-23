@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Core.DTO;
 using Core.Entities.UserEntity;
+using Core.Modals;
 
 namespace Core.Interfaces.CustomService
 {
@@ -9,8 +10,8 @@ namespace Core.Interfaces.CustomService
     {
         string GetCurrentUserNameIdentifier(ClaimsPrincipal currentUser);
         Task<string> GetUserRoleAsync(User user);
-        Task<ProfileDTO> GetProfileUserAsync(string id);
+        Task<ProfileModal> GetProfileUserAsync(string id);
         Task<UserFullNameDTO> GetFullNameImageAsync(string userId);
-        Task EditProfileAsync(ProfileDTO profile);
+        Task EditProfileAsync(ProfileModal profile);
     }
 }

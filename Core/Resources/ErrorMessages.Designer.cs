@@ -59,16 +59,7 @@ namespace Core.Resources {
                 resourceCulture = value;
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Car with one or more of such properties already exists..
-        /// </summary>
-        public static string AddingCarNotAllowed {
-            get {
-                return ResourceManager.GetString("AddingCarNotAllowed", resourceCulture);
-            }
-        }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to You already confirmed your email address!.
         /// </summary>
@@ -158,16 +149,7 @@ namespace Core.Resources {
                 return ResourceManager.GetString("IncorrectLoginOrPassword", resourceCulture);
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Invalid point&apos;s order!.
-        /// </summary>
-        public static string InvalidOrder {
-            get {
-                return ResourceManager.GetString("InvalidOrder", resourceCulture);
-            }
-        }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Invalid request.
         /// </summary>
@@ -203,16 +185,7 @@ namespace Core.Resources {
                 return ResourceManager.GetString("InviteAlreadyAccepted", resourceCulture);
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to This invite not found or it already answered.
-        /// </summary>
-        public static string InviteNotFound {
-            get {
-                return ResourceManager.GetString("InviteNotFound", resourceCulture);
-            }
-        }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to You are not allowed to do this!.
         /// </summary>
@@ -248,16 +221,7 @@ namespace Core.Resources {
                 return ResourceManager.GetString("RoleNotFound", resourceCulture);
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The route has already had invites! You can only decline the invite!.
-        /// </summary>
-        public static string RouteHasInvites {
-            get {
-                return ResourceManager.GetString("RouteHasInvites", resourceCulture);
-            }
-        }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to You cannot send invite to your account.
         /// </summary>
@@ -275,16 +239,7 @@ namespace Core.Resources {
                 return ResourceManager.GetString("UnknownError", resourceCulture);
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to This user already accepted your invite.
-        /// </summary>
-        public static string UserAcceptedInvite {
-            get {
-                return ResourceManager.GetString("UserAcceptedInvite", resourceCulture);
-            }
-        }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to This user has already assigned.
         /// </summary>
@@ -293,16 +248,7 @@ namespace Core.Resources {
                 return ResourceManager.GetString("UserAlreadyAssigned", resourceCulture);
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to User already has invite, wait for a answer.
-        /// </summary>
-        public static string UserAlreadyHasInvite {
-            get {
-                return ResourceManager.GetString("UserAlreadyHasInvite", resourceCulture);
-            }
-        }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to User with active offers or trips can`t be deleted.
         /// </summary>
@@ -345,6 +291,39 @@ namespace Core.Resources {
         public static string WrongResetPasswordCode {
             get {
                 return ResourceManager.GetString("WrongResetPasswordCode", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Wallet not found!
+        /// </summary>
+        public static string WalletNotFound
+        {
+            get
+            {
+                return ResourceManager.GetString("WalletNotFound", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Profile not found!
+        /// </summary>
+        public static string ProfileNotFound
+        {
+            get
+            {
+                return ResourceManager.GetString("ProfileNotFound", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Cash not found!
+        /// </summary>
+        public static string CashNotFound
+        {
+            get
+            {
+                return ResourceManager.GetString("CashNotFound", resourceCulture);
             }
         }
     }
