@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Security.Claims;
-using System.Threading;
 using System.Threading.Tasks;
 using Api.ModalWindows;
 using Blazored.Modal;
@@ -58,10 +58,24 @@ namespace Api.Pages
 
         protected async Task DeleteCard(string number)
         {
-            await CardService.DeleteCardByNumber(number);
-            Thread.Sleep(1000);
-            await ShowCardsAsync(UserId);
-            StateHasChanged();
+            try
+            {
+                await CardService.DeleteCardByNumber(number);
+                await ShowCardsAsync(UserId);
+                StateHasChanged();
+            }
+            catch (Exception e)
+            {
+                var parameters = new ModalParameters();
+                parameters.Add(
+                    nameof(e.Message),
+                    e.Message);
+                Modal.Show<ErrorModal>("Error", parameters);
+            }
+            finally
+            {
+                StateHasChanged();
+            }
         }
 
         public async Task Rerender()

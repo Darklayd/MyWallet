@@ -51,7 +51,7 @@ namespace Core.Services
             }
         }
 
-        public async Task RemainderCashAsync(double remainder, string typeMoney)
+        public async Task RemainderCashAsync(double remainder, string typeMoney, CashModal toCash)
         {
             var cash = await _cashRepository
                 .GetBySpecAsync(new CashSpecification.GetCashByTypeMoney(typeMoney));
@@ -63,6 +63,7 @@ namespace Core.Services
 
             cash.Count = remainder;
 
+            await AddCashAsync(toCash);
             await _cashRepository.UpdateAsync(cash);
         }
     }

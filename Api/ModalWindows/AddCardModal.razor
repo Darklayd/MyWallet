@@ -54,6 +54,9 @@
 @code {
     [CascadingParameter] BlazoredModalInstance BlazoredModal { get; set; } = default!;
 
+    [CascadingParameter]//додаєм каскадний параметр
+    public IModalService Modal { get; set; } = default!;
+
     [Inject]
     public ICardService CardService { get; set; }  
     
@@ -72,11 +75,24 @@
 
     async Task AddCard()
     {
-        Card.Logo = TypeCard.GetList().FirstOrDefault(c => c.TypeName == Card.Type).ImageSrc;
-        Card.UserId = UserId;
-        await CardService.AddCardAsync(Card);
-        await CardsComponent.Rerender();
-        await BlazoredModal.CloseAsync(ModalResult.Ok(true));
+        try
+        {
+            if (Card.Number.Length == 16)
+            {
+                Card.Logo = TypeCard.GetList().FirstOrDefault(c => c.TypeName == Card.Type).ImageSrc;
+                Card.UserId = UserId;
+                await CardService.AddCardAsync(Card);
+                await CardsComponent.Rerender();
+            }
+            await BlazoredModal.CloseAsync(ModalResult.Ok(true));
+        }
+        catch (Exception e)
+        {
+            var parameters = new ModalParameters();
+            parameters.Add(nameof(e.Message), e.Message);
+            Modal.Show<ErrorModal>("Error");
+        }
+        
     }
 
 }

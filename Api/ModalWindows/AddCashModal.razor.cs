@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Security.Claims;
+using System.Threading;
 using System.Threading.Tasks;
 using Api.Pages;
 using Blazored.Modal;
@@ -46,14 +48,28 @@ namespace Api.ModalWindows
 
         protected override async Task OnInitializedAsync()
         {
-            TypeMoneyList = await TypeMoneyService.GetListAsync();
+            try
+            {
+                TypeMoneyList = await TypeMoneyService.GetListAsync();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
         }
 
         protected override async Task OnParametersSetAsync()
         {
-            UserId = HttpContextAccessor.HttpContext.User
-                .FindFirstValue(ClaimTypes.NameIdentifier);
-            Cards = await CardService.GetCardsByUser(UserId);
+            try
+            {
+                UserId = HttpContextAccessor.HttpContext.User
+                    .FindFirstValue(ClaimTypes.NameIdentifier);
+                Cards = await CardService.GetCardsByUser(UserId);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
         }
 
         protected async Task AddCash()

@@ -90,13 +90,21 @@
         {
             ToMoneyType.WalletId = WalletPageComponent.WalletId;
 
-            await CashService.AddCashAsync(ToMoneyType);
-            await CashService.RemainderCashAsync(Remainder, TypeMoney);
+            try
+            {
+                await CashService.RemainderCashAsync(Remainder, TypeMoney, ToMoneyType);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+            finally
+            {
+                WalletPageComponent.Rerender();
+                await BlazoredModal.CloseAsync(ModalResult.Ok(true));
+            }
 
-            WalletPageComponent.Rerender();
         }
-
-        await BlazoredModal.CloseAsync(ModalResult.Ok(true));
     }
 
     protected async Task CalcConvertCash()
