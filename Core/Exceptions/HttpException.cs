@@ -1,3 +1,5 @@
+// Допоміжний клас для генерування помилок
+
 using System;
 using System.Net;
 

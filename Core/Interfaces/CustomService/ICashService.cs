@@ -1,11 +1,11 @@
 ﻿using System.Threading.Tasks;
-using Core.Modals;
+using Core.Models;
 
 namespace Core.Interfaces.CustomService
 {
     public interface ICashService
         {
-            Task AddCashAsync(CashModal cash);
-            Task RemainderCashAsync(double remainder, string typeMoney, CashModal toCash);
+            Task AddCashAsync(CashModel cash);
+            Task RemainderCashAsync(double remainder, string typeMoney, CashModel toCash);
         }
 }

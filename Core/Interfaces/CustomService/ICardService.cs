@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿//Тут і нище описані інтерфейси в яких описаний функціонал сервісів до кожної сутності
+
+using System.Collections.Generic;
 using Core.DTO;
 using System.Threading.Tasks;
-using Core.Modals;
+using Core.Models;
 
 namespace Core.Interfaces.CustomService
 {

@@ -1,4 +1,6 @@
-﻿using Ardalis.Specification;
+﻿//тут і нище описані специфікації які вказуть, які і як діставати дані з таблиць
+
+using Ardalis.Specification;
 using Core.Entities.CardEntity;
 
 namespace Core.Specifications

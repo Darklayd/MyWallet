@@ -1,4 +1,6 @@
-﻿using Api.Data;
+﻿//Тут підключаються сервіси
+
+using Api.Data;
 using Core.Interfaces;
 using Infrastructure.Repository;
 using Microsoft.EntityFrameworkCore;

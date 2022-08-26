@@ -1,6 +1,9 @@
-﻿@using Core.DTO
+﻿@*Верстка компонента для модалки додавання гаманця*@
+
 @using Core.Interfaces.CustomService
 @using Api.Pages
+@using Core.Models
+@using Microsoft.AspNetCore.Components
 <div>
     <p>Enter name your wallet</p>
     <EditForm Model="@Wallet">
@@ -26,14 +29,14 @@
     [Parameter]
     public string? UserId { get; set; }
 
-    protected WalletModal Wallet { get; set; }
+    protected WalletModel Wallet { get; set; }
     
     [Parameter]
     public Wallets WalletsComponent { get; set; }
 
     protected override void OnParametersSet()
     {
-        Wallet = new WalletModal();
+        Wallet = new WalletModel();
     }
 
     async Task CreateWallet()

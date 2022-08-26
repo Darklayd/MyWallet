@@ -24,7 +24,8 @@ namespace Core.Services
 
         public async Task<List<TypeMoneyInfoDTO>> GetListAsync()
         {
-            var typeMoney = await _typeMoneyRepository.ListAsync(new TypeMoneySpecification.GetList());
+            var typeMoney = await _typeMoneyRepository.ListAsync(
+                new TypeMoneySpecification.GetList());
             await _typeMoneyRepository.SaveChangesAsync();
             return _mapper.Map<List<TypeMoneyInfoDTO>>(typeMoney);
         }

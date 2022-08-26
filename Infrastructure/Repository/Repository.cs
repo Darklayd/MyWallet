@@ -1,4 +1,6 @@
-﻿using Ardalis.Specification.EntityFrameworkCore;
+﻿//додаєм репозиторій, який полегшує роботу з БД і сутностями
+
+using Ardalis.Specification.EntityFrameworkCore;
 using Core.Interfaces;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;

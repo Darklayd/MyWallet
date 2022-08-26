@@ -1,4 +1,6 @@
-﻿using Core.DTO.JsonModels;
+﻿//Тут описані сіди, які відповідають за базовезаповнення БД даними
+
+using Core.DTO.JsonModels;
 using Core.Entities.TypesMoney;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;

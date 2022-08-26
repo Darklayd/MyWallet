@@ -1,7 +1,9 @@
-﻿using System;
+﻿// тут і нище описані моделі даних які приходять з форм
+
+using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Core.Modals
+namespace Core.Models
 {
     public class CardModel
     {

@@ -1,7 +1,9 @@
-﻿using AutoMapper;
+﻿//в цьому файлах і нище розміщується підключеня і налаштування памінгу моделей та ДТО
+
+using AutoMapper;
 using Core.DTO;
 using Core.Entities.CardEntity;
-using Core.Modals;
+using Core.Models;
 
 namespace Core.AutoMapper.ApplicationProfiles
 {

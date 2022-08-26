@@ -8,7 +8,7 @@ using Blazored.Modal;
 using Blazored.Modal.Services;
 using Core.DTO;
 using Core.Interfaces.CustomService;
-using Core.Modals;
+using Core.Models;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Http;
 
@@ -19,6 +19,7 @@ namespace Api.ModalWindows
         [CascadingParameter] BlazoredModalInstance BlazoredModal { get; set; } = default!;
 
         [Inject]
+        //інтефей який дозволяє працювати з кожним користувачив і брати зних дані
         public IHttpContextAccessor HttpContextAccessor { get; set; } = default!;
 
         [Inject]
@@ -35,7 +36,7 @@ namespace Api.ModalWindows
 
         protected string UserId { get; set; }
 
-        protected CashModal Cash { get; set; }
+        protected CashModel Cash { get; set; }
 
         protected List<TypeMoneyInfoDTO> TypeMoneyList { get; set; }
 
@@ -43,9 +44,9 @@ namespace Api.ModalWindows
 
         public AddCashModalComponent()
         {
-            Cash = new CashModal() {TypeMoneyId = 1, CardNumber = "-"};
+            Cash = new CashModel() {TypeMoneyId = 1, CardNumber = "-"};
         }
-
+        //метод який викликається підчас ініціалізації модалки
         protected override async Task OnInitializedAsync()
         {
             try
@@ -80,6 +81,7 @@ namespace Api.ModalWindows
                 await CashService.AddCashAsync(Cash);
                 WalletPageComponent.Rerender();
             }
+            //закриваєм модальне вікно
             await BlazoredModal.CloseAsync(ModalResult.Ok(true));
         }
     }

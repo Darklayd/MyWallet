@@ -4,7 +4,7 @@ using Core.Entities.WalletEntity;
 using Core.Exceptions;
 using Core.Interfaces;
 using Core.Interfaces.CustomService;
-using Core.Modals;
+using Core.Models;
 using Core.Resources;
 using Core.Specifications;
 using System.Net;
@@ -28,7 +28,7 @@ namespace Core.Services
             _walletRepository = walletRepository;
         }
 
-        public async Task AddCashAsync(CashModal cash)
+        public async Task AddCashAsync(CashModel cash)
         {
             var newWallet = await _walletRepository.GetByIdAsync(cash.WalletId);
 
@@ -51,7 +51,7 @@ namespace Core.Services
             }
         }
 
-        public async Task RemainderCashAsync(double remainder, string typeMoney, CashModal toCash)
+        public async Task RemainderCashAsync(double remainder, string typeMoney, CashModel toCash)
         {
             var cash = await _cashRepository
                 .GetBySpecAsync(new CashSpecification.GetCashByTypeMoney(typeMoney));

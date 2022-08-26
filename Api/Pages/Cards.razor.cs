@@ -61,16 +61,11 @@ namespace Api.Pages
             try
             {
                 await CardService.DeleteCardByNumber(number);
-                await ShowCardsAsync(UserId);
-                StateHasChanged();
+                await Rerender();
             }
             catch (Exception e)
             {
-                var parameters = new ModalParameters();
-                parameters.Add(
-                    nameof(e.Message),
-                    e.Message);
-                Modal.Show<ErrorModal>("Error", parameters);
+                Console.WriteLine(e.Message);
             }
             finally
             {
