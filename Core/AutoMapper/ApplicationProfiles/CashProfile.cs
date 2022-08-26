@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Core.DTO;
 using Core.Entities.CashEntity;
-using Core.Modals;
+using Core.Models;
 
 namespace Core.AutoMapper.ApplicationProfiles
 {
@@ -9,7 +9,7 @@ namespace Core.AutoMapper.ApplicationProfiles
     {
         public CashProfile()
         {
-            CreateMap<Cash, CashModal>().ReverseMap();
+            CreateMap<Cash, CashModel>().ReverseMap();
             CreateMap<Cash, CashInfoDTO>()
                 .ForMember(c => c.TypeMoney, tm => tm.MapFrom(c => c.TypeMoney));
         }

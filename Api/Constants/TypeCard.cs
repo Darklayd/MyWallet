@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿//Сталі назви банківських карт
+using System.Collections.Generic;
 
 namespace Api.Constants
 {

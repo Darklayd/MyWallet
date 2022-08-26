@@ -9,6 +9,7 @@ using Core.Entities.WalletEntity;
 using Core.Exceptions;
 using Core.Interfaces;
 using Core.Interfaces.CustomService;
+using Core.Models;
 using Core.Resources;
 using Core.Specifications;
 
@@ -31,7 +32,7 @@ namespace Core.Services
             _userRepository = userRepository;
         }
 
-        public async Task CreateWalletAsync(WalletModal wallet)
+        public async Task CreateWalletAsync(WalletModel wallet)
         {
             var user = await _userRepository.GetByIdAsync(wallet.UserId);
             

@@ -1,6 +1,6 @@
-﻿namespace Core.Modals
+﻿namespace Core.Models
 {
-    public class CurrencyConverterModal
+    public class CurrencyConverterModel
     {
         public string FromMoneyType { get; set; }
         public string ToMoneyType { get; set; }

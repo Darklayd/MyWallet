@@ -6,22 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Image\ProfileImages\avatar.jpg" />
-    <None Remove="Image\ProfileImages\default.svg" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="Image\ProfileImages\avatar.jpg">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="Image\ProfileImages\default.svg">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Blazored.Modal" Version="6.0.1" />
     <PackageReference Include="IgniteUI.Blazor" Version="22.1.41" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="5.0.17" />

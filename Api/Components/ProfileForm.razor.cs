@@ -7,7 +7,7 @@ using Api.ModalWindows;
 using Blazored.Modal;
 using Blazored.Modal.Services;
 using Core.Constants;
-using Core.Modals;
+using Core.Models;
 
 namespace Api.Components
 {
@@ -21,7 +21,7 @@ namespace Api.Components
         [Parameter]
         public string UserId { get; set; }
 
-        public ProfileModal Profile { get; set; }
+        public ProfileModel Profile { get; set; }
 
         public RazorProfileModel()
         {
@@ -60,7 +60,7 @@ namespace Api.Components
 
         private void SetDefaultProfile()
         {
-            Profile = new ProfileModal()
+            Profile = new ProfileModel()
             {
                 Id = "",
                 FirstName = "Connect problem",

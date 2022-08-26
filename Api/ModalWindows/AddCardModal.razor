@@ -1,8 +1,10 @@
-﻿@using Microsoft.AspNetCore.Components
+﻿@*Модальне вікно для додавання карток
+*@
+@using Microsoft.AspNetCore.Components
 @using Api.Constants
 @using Api.Pages
 @using Core.Interfaces.CustomService
-@using Core.Modals
+@using Core.Models
 
 <div>
     <p>Enter name your card</p>
@@ -52,29 +54,34 @@
 </div>
 
 @code {
-    [CascadingParameter] BlazoredModalInstance BlazoredModal { get; set; } = default!;
+    [CascadingParameter] //анотація на дододавання каскадного параметра
+    BlazoredModalInstance BlazoredModal { get; set; } = default!;
 
     [CascadingParameter]//додаєм каскадний параметр
     public IModalService Modal { get; set; } = default!;
 
-    [Inject]
+    [Inject]// анотація для ініціалізації властивості
     public ICardService CardService { get; set; }  
     
-    [Parameter]
+    [Parameter]//додаєм параметр
     public Cards CardsComponent { get; set; }
     
-    [Parameter]
+    [Parameter]//додаєм параметр
     public string UserId { get; set; }
 
+    //Модель Картки
     protected CardModel Card { get; set; }
 
+    //перевизначений метод для присвоєння зміним даних
     protected override void OnParametersSet()
     {
         Card = new CardModel(){Type = TypeCard.Visa.TypeName};
     }
 
+    //метод для дадавання карток
     async Task AddCard()
     {
+        //оператор для відловлення помилок
         try
         {
             if (Card.Number.Length == 16)
@@ -88,6 +95,7 @@
         }
         catch (Exception e)
         {
+            //виртаєм модальне вікно з помилкою
             var parameters = new ModalParameters();
             parameters.Add(nameof(e.Message), e.Message);
             Modal.Show<ErrorModal>("Error");

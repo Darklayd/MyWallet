@@ -1,4 +1,7 @@
-﻿using System;
+﻿//Тут і нище описані сервіси, які реалізують інтефейси, які на писані вище 
+//Що робить сервіс описано в назвах його функцій
+
+using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
@@ -9,7 +12,7 @@ using Core.Entities.UserEntity;
 using Core.Exceptions;
 using Core.Interfaces;
 using Core.Interfaces.CustomService;
-using Core.Modals;
+using Core.Models;
 using Core.Resources;
 using Core.Specifications;
 
@@ -44,6 +47,7 @@ namespace Core.Services
 
             if (user == null)
             {
+                //генеруєм помилку
                 throw new HttpException(ErrorMessages.UserNotFound, HttpStatusCode.NotFound);
             }
 
@@ -64,7 +68,8 @@ namespace Core.Services
                 throw new HttpException(ErrorMessages.CashNotFound, HttpStatusCode.NotFound);
             }
 
-            _cardRepository.DeleteAsync(card);
+            await _cardRepository.DeleteAsync(card);
+            await _cardRepository.SaveChangesAsync();
         }
     }
 }

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Core.Modals
+namespace Core.Models
 {
-    public class CashModal
+    public class CashModel
     {
         public int WalletId { get; set; }
         [Required]

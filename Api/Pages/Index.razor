@@ -1,12 +1,10 @@
-﻿@page "/"
+﻿@*Головна сторінка на якій зображується графік*@
+
+@page "/"
 @using Microsoft.AspNetCore.Components
 @using IgniteUI.Blazor.Controls
-@using System.Text.Json
-@using System.Text.Json.Serialization
-@using Api.ModalWindows
-@using Core.DTO
-@using Core.Interfaces.CustomService
 
+@inherits IndexComponent
 
 <h1>Welcome to MY Wallet!</h1>
 
@@ -54,92 +52,3 @@
         }
     </div>
 </div>
-
-
-@code {
-    [CascadingParameter]//додаєм каскадний параметр
-    public IModalService Modal { get; set; } = default!;
-
-    [Inject]
-    public ITypeMoneyService TypeMoneyService { get; set; }
-
-    public List<TypeMoneyInfoDTO> TypeMoneyList { get; set; }
-
-    protected string TypeMoney { get; set; } = "USD";
-
-    protected string StartDate { get; set; } = DateTime.UtcNow.ToString($"{DateTime.UtcNow.Year - 1}.MM.dd");
-
-    protected string EndDate { get; set; } = DateTime.UtcNow.ToString("yyyy.MM.dd");
-
-    private IgbCategoryChart _Chart;
-    private IgbCategoryChart Chart
-    {
-        get { return _Chart; }
-        set { _Chart = value;
-            StateHasChanged();
-        }
-    }
-
-    private List<RateItem> Data;
-
-    class RateItem
-        {
-            [JsonPropertyName("exchangedate")]
-            public string Date { get; set; }
-            [JsonPropertyName("rate")] 
-            public double Rate_UAH { get; set; }
-        }
-
-    public HttpClient HttpClient { get; set; }
-
-    protected override async Task OnInitializedAsync()
-    {
-        try
-        {
-            HttpClient = new HttpClient();
-            await SetDataAsync();
-            TypeMoneyList = await TypeMoneyService.GetListAsync();
-        }catch (Exception e)
-        {
-            var parameters = new ModalParameters();
-            parameters.Add(nameof(e.Message), e.Message);
-            Modal.Show<ErrorModal>("Error", parameters);
-        }
-       
-    }
-
-    protected async Task OnReloadChart()
-    {
-        try
-        {
-            await SetDataAsync();
-            await this.Chart.ReplayTransitionInAsync();
-        }
-        catch (Exception e)
-        {
-            var parameters = new ModalParameters();
-            parameters.Add(nameof(e.Message), e.Message);
-            Modal.Show<ErrorModal>("Error", parameters);
-        }
-    }
-
-    async Task SetDataAsync()
-    {
-        try
-        {
-            var dataJson = await HttpClient
-                .GetStringAsync(
-                    $"https://bank.gov.ua/NBU_Exchange/exchange_site?start={StartDate.Replace(".", "")}&end={EndDate.Replace(".", "")}&valcode={TypeMoney.ToLower()}&sort=exchangedate&order=desc&json");
-
-            Data = JsonSerializer.Deserialize<List<RateItem>>(dataJson);
-        }
-        catch (Exception e)
-        {
-            var parameters = new ModalParameters();
-            parameters.Add(nameof(e.Message), e.Message);
-
-            Modal.Show<ErrorModal>("Error", parameters);
-            TypeMoney = "USD";
-        }
-    }
-}

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Core.Modals
+namespace Core.Models
 {
-    public class ProfileModal
+    public class ProfileModel
     {
         public string Id { get; set; }
         [Required]

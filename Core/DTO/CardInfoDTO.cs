@@ -1,4 +1,6 @@
-﻿using System;
+﻿//Тут і нище описані модельки в яких передаються дані
+
+using System;
 
 namespace Core.DTO
 {

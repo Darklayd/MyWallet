@@ -1,4 +1,6 @@
-﻿using AutoMapper;
+﻿//тут підключаються сервіси
+
+using AutoMapper;
 using Core.AutoMapper.ApplicationProfiles;
 using Core.Interfaces.CustomService;
 using Core.Services;

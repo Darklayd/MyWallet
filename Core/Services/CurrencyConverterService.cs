@@ -1,5 +1,5 @@
 ﻿using Core.DTO.JsonModels;
-using Core.Modals;
+using Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -17,7 +17,7 @@ namespace Core.Services
             _client = new HttpClient();
         }
 
-        public async Task<double> CurrencyConverter(CurrencyConverterModal currencyConverter)
+        public async Task<double> CurrencyConverter(CurrencyConverterModel currencyConverter)
         {
             
             var fromRateData = await _client
@@ -30,6 +30,7 @@ namespace Core.Services
             JsonCurrency fromRateInfo;
             JsonCurrency toRateInfo;
 
+            //перевіряєм чи відповідає тип гривні
             if (currencyConverter.FromMoneyType == "UAH")
             {
                 fromRateInfo = new JsonCurrency()

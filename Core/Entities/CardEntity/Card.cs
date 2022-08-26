@@ -1,4 +1,5 @@
-﻿using Core.Entities.WalletEntity;
+﻿//тут і нище описані сутності бази даних
+ 
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using Core.Entities.UserEntity;

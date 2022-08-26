@@ -1,4 +1,6 @@
-﻿namespace Core.Constants
+﻿//Клас з костаним значенням, а саме розміщенням картинки для профіля
+
+namespace Core.Constants
 {
     public static class ProfileAvatar
     {
